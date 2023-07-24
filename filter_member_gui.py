@@ -2,7 +2,7 @@ import os
 os.chdir(os.path.dirname(__file__))
 import tkinter as tk
 from tkinter import filedialog as fdl
-import filter_member as fm
+from filter_member import admember as adm
 
 class filmem_gui():
     def __init__(self) -> None:
@@ -16,16 +16,18 @@ class filmem_gui():
         self.quarantine_list_label = tk.Label(text = "隔離區名單")
         
         #Entries
-        self.welcome_questionaire_list_entry = tk.Entry()
-        self.total_member_list_label_enrty = tk.Entry()
-        self.quarantine_list_label_entry = tk.Entry()
+        self.welcome_questionaire_list_entry = tk.Entry(width = 40)
+        self.total_member_list_label_enrty = tk.Entry(width = 40)
+        self.quarantine_list_label_entry = tk.Entry(width = 40)
         self.win.mainloop()
 
-    '''def select_file(self, filetype: str):
+    def select_file(self, filetype: str):
         if filetype == "welcome_questionaire_list":
-
+            self.welcome_questionaire_list_filepath = fdl.askopenfilename()
+            self.welcome_questionaire_list_entry.delete(0, tk.END)
+            self.welcome_questionaire_list_entry.insert(0, self.welcome_questionaire_list_filepath)
         if filetype == "total_member_list":
 
-        if filetype == "quarantine_list":'''
+        if filetype == "quarantine_list":
 
 filmem_gui()
