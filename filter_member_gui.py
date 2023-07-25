@@ -2,11 +2,12 @@ import tkinter as tk
 from tkinter import filedialog as fdl
 from filtmem.filter_member import admember as adm
 
-class filmem_gui():
+class filmem_gui(tk.Tk):
     def __init__(self) -> None:
-        self.win = tk.Tk()
-        self.win.geometry("550x500")
-        self.win.title("選擇開啟的檔案")
+        
+        super().__init__()
+        self.geometry("550x500")
+        self.title("選擇開啟的檔案")
 
         #Lables
         self.welcome_questionaire_list_label = tk.Label(text = "歡迎問卷名單")
@@ -22,28 +23,28 @@ class filmem_gui():
 
         #Buttons
         self.welcome_questionaire_list_button = tk.Button(
-            self.win,
+            self,
             text = "選擇檔案",
             height = 1,
             command = lambda: self.select_file(filetype = "welcome_questionaire_list")
         )
         self.total_member_list_button = tk.Button(
-            self.win,
+            self,
             text = "選擇檔案",
             height = 1,
             command = lambda: self.select_file(filetype = "total_member_list")
         )
         self.quarantine_list_button = tk.Button(
-            self.win,
+            self,
             text = "選擇檔案",
             height = 1,
             command = lambda: self.select_file(filetype = "quarantine_list")
         )
         self.execute_button = tk.Button(
-            self.win,
+            self,
             text = "OK",
             height = 1,
-            command = self.execute 
+            command = self.execute
         )
 
         #gridding
@@ -83,8 +84,6 @@ class filmem_gui():
         self.execute_button.grid(
             row = 8, column = 3,  padx=10, ipadx=5
         )
-
-        self.win.mainloop()
 
     def select_file(self, filetype: str):
         if filetype == "welcome_questionaire_list":
@@ -128,4 +127,5 @@ class filmem_gui():
 
     def execute(self):
         self.added_members()
-        self.win.destroy()
+        self.destroy()
+        self.quit()

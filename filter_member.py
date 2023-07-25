@@ -187,7 +187,7 @@ class admember():
             pd.Series(general_freq, name = "general_sample"),
             pd.Series(total_freq, name = "total_sample")],
             axis = 1)
-        show_perf = self.indivisual_performance
+        show_perf = self.indivisual_performance.copy()
         show_perf["general_sample"].loc[show_perf["general_sample"] >= 10] = "上限"
         show_perf = show_perf.drop(columns = "total_sample", axis = 1)
         return show_perf
