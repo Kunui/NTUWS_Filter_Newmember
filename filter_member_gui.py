@@ -129,5 +129,3 @@ class filmem_gui():
     def execute(self):
         self.added_members()
         self.win.destroy()
-        
-filmem_gui()
