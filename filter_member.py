@@ -237,3 +237,4 @@ class admember():
         )
         export_path = f'{output}樣本進度.png'
         plt.savefig(export_path, bbox_inches = 'tight')
+        plt.close()
