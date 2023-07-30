@@ -1,6 +1,8 @@
 import tkinter as tk
+import pandas as pd
 from tkinter import filedialog as fdl
 from filtmem.filter_member import admember as adm
+#from filter_member import admember as adm
 
 class filmem_gui(tk.Tk):
     def __init__(self) -> None:
@@ -40,13 +42,45 @@ class filmem_gui(tk.Tk):
             height = 1,
             command = lambda: self.select_file(filetype = "quarantine_list")
         )
+        
+        self.duplicate_samples_var = tk.IntVar(self, value = 0)
+        self.duplicate_samples_button = tk.Checkbutton(
+            self,
+            text = "重複樣本",
+            height = 1,
+            variable = self.duplicate_samples_var,
+            onvalue = 1,
+            offvalue = 0,
+            command = self.duplicate_samples_examination
+        )
+        self.problematic_samples_var =  tk.IntVar(self, value =0)
+        self.problematic_samples_button = tk.Checkbutton(
+            self,
+            text = "問題樣本",
+            height = 1,
+            variable = self.problematic_samples_var,
+            onvalue = 1,
+            offvalue = 0,
+            command = self.problematic_samples_examination
+        )
+        self.successful_samples_var = tk.IntVar(self, value = 0)
+        self.successful_samples_button = tk.Checkbutton(
+            self,
+            text = "成功樣本",
+            height = 1,
+            variable = self.successful_samples_var,
+            onvalue = 1,
+            offvalue = 0,
+            command = self.successful_samples_examination
+        )
+        
         self.execute_button = tk.Button(
             self,
             text = "OK",
             height = 1,
             command = self.execute
         )
-
+        
         #gridding
         self.welcome_questionaire_list_label.grid(
             row = 0, column = 0, columnspan = 5,padx=10, ipadx=5, sticky = "w"
@@ -74,6 +108,15 @@ class filmem_gui(tk.Tk):
         )
         self.quarantine_list_button.grid(
             row = 5, column = 4, padx=10, ipadx=5
+        )
+        self.duplicate_samples_button.grid(
+            row = 6, column = 0, padx=10, ipadx=5
+        )
+        self.problematic_samples_button.grid(
+            row = 6, column = 1, padx=10, ipadx=5
+        )
+        self.successful_samples_button.grid(
+            row = 6, column = 2, padx=10, ipadx=5
         )
         self.samples_date_label.grid(
             row = 7, column = 0,padx=10, ipadx=5, sticky = "E"
@@ -109,23 +152,68 @@ class filmem_gui(tk.Tk):
             ttmlist = self.total_member_list_filepath,
             qtlist = self.quarantine_list_filepath
         )
-        welcome_questionaire_samples,  total_member_samples = samples.get_filter()
-        self.duplicate_samples = samples.duplicate_number(wqs = welcome_questionaire_samples)
-        self.problematic_samples = samples.get_problem(
-            wqs = welcome_questionaire_samples,
-            tts = total_member_samples
-        )
-        self.successful_samples = samples.sample_merge(
-            wqs = welcome_questionaire_samples,
-            tts = total_member_samples
-        )
+        self.welcome_questionaire_samples,  self.total_member_samples = samples.get_filter()
+        return samples
+    
+    def duplicate_samples_examination(self):
+        self.duplicate_samples_var.set(self.duplicate_samples_var.get())
+
+    def problematic_samples_examination(self):
+        self.problematic_samples_var.set(self.problematic_samples_var.get())
+
+    def successful_samples_examination(self):
+        self.successful_samples_var.set(self.successful_samples_var.get())
+    
+    def export_examination(self, outputname: str):
+        return f'{self.samples_date()}{outputname}.xlsx'
+        
+    
+    def execute(self):
+        samples = self.added_members()
+        
+        if self.duplicate_samples_var.get() == 1:
+            duplicate_samples_path = self.export_examination(
+                outputname = "重複樣本"
+            )
+            self.duplicate_samples = samples.duplicate_number(
+                wqs = self.welcome_questionaire_samples
+            )
+            self.duplicate_samples.to_excel(duplicate_samples_path, index = False, encoding = 'utf_8_sig')
+        
+        if self.problematic_samples_var.get() == 1:
+            problematic_samples_path = self.export_examination(
+                outputname = "問題樣本"
+            )
+            self.problematic_samples = samples.get_problem(
+                wqs = self.welcome_questionaire_samples,
+                tts = self.total_member_samples
+            )
+            self.problematic_samples.to_excel(
+                problematic_samples_path,
+                index = False,
+                encoding = "utf_8_sig"
+            )
+        
+        if self.successful_samples_var.get() == 1:
+            successful_samples_path = self.export_examination(
+                outputname = "成功樣本"
+            )
+            self.successful_samples = samples.sample_merge(
+                wqs = self.welcome_questionaire_samples,
+                tts = self.total_member_samples
+            )
+            self.successful_samples.to_excel(
+                successful_samples_path,
+                index = False,
+                encoding = "utf_8_sig"
+            )
+        
         samples.export_result(
-            wqs = welcome_questionaire_samples,
-            tts = total_member_samples,
+            wqs = self.welcome_questionaire_samples,
+            tts = self.total_member_samples,
             output = self.samples_date()
         )
-
-    def execute(self):
-        self.added_members()
         self.destroy()
         self.quit()
+
+#filmem_gui().mainloop()
