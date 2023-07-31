@@ -24,6 +24,6 @@ There're also two arguements "wqs" and "tts". This function would count the memb
 ## Running
 In addtion to running the codes by editting the script file, the modules also support running by GUI. Clone the whole file of this repository, make a new directory which is upper the project folder and then create a "main\.py" file to run the modules. The codes whithin "main" should be:
 >>import os
-os.chdir(os.path.dirname(\_\_file\_\_))
-from filtmem.filter_member_gui import filmem_gui
-filmem_gui().mainloop()
+>>os.chdir(os.path.dirname(\_\_file\_\_))
+>>from filtmem.filter_member_gui import filmem_gui
+>>filmem_gui().mainloop()
