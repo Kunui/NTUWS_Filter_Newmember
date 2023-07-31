@@ -1,5 +1,4 @@
 import tkinter as tk
-import pandas as pd
 from tkinter import filedialog as fdl
 from filtmem.filter_member import admember as adm
 
