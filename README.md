@@ -23,7 +23,7 @@ The two arguements are "wqs" and "tts". This function would filter out the sampl
 There're also two arguements "wqs" and "tts". This function would count the members based on the specific values of "age" and "city" columns. The **elder** people and **non Great Taipei area** residents are the target samples. Interviers could fit the bill only when the members they recommended whose age is over 50 and not living in Great Taipei. It would return a table that shows the amount of target samples and general samples respectively each interviewers finally aqcuired so far.
 ## Running
 In addtion to running the codes by editting the script file, the modules also support running by GUI. Clone the whole file of this repository, make a new directory which is upper the project folder and then create a "main\.py" file to run the modules. The codes whithin "main" should be:
->>import os
->>os.chdir(os.path.dirname(\_\_file\_\_))
->>from filtmem.filter_member_gui import filmem_gui
->>filmem_gui().mainloop()
+>import os
+>os.chdir(os.path.dirname(\_\_file\_\_))
+>from filtmem.filter_member_gui import filmem_gui
+>filmem_gui().mainloop()
