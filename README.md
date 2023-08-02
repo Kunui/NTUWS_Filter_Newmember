@@ -22,8 +22,21 @@ The two arguements are "wqs" and "tts". This function would filter out the sampl
 ### interviewers_performance(wqs, tts)
 There're also two arguements "wqs" and "tts". This function would count the members based on the specific values of "age" and "city" columns. The **elder** people and **non Great Taipei area** residents are the target samples. Interviers could fit the bill only when the members they recommended whose age is over 50 and not living in Great Taipei. It would return a table that shows the amount of target samples and general samples respectively each interviewers finally aqcuired so far.
 ## Running
-In addtion to running the codes by editting the script file, the modules also support running by GUI. Clone the whole file of this repository, make a new directory which is upper the project folder and then create a "main\.py" file to run the modules. The codes whithin "main" should be:
+In addtion to running the codes by editting the script file, the modules also support running by GUI. 
+### Main Program
+Clone the whole file of this repository, make a new directory which is upper the project folder and then create a "main\.py" file to run the modules. The codes whithin "main" should be:
 >import os  
 >os.chdir(os.path.dirname(\_\_file\_\_))    
 >from filtmem.filter_member_gui import filmem_gui   
->filmem_gui().mainloop()
+>filmem_gui().mainloop()    
+### Select the files
+There're three key files users have to select to run the modules. Click the "Open File" buttons on the window, select the right files according to the labels above the entries placed in the same row with the buttons. Each entries would show the path of the file selected.
+### Print out the Tables and Image
+Users have to type the date in "Samples' Date" entry. The three check buttons on the window could export the tables of **duplicate samples**, the **problematic samples** and the **successful samples**. It's optional for users to get the tables, it could export partial not all tables, depending on which check buttons users finally click. The modules would also print out the image of the counted result of how many target and general samples the interviewers had got whether users clicked any check button or not.
+## Version
+* **v1.01** 07/23/2023
+The first committed and released version. The basic function is export interviews' performance image.
+* **v1.02** 07/25/2023
+Added GUI script file, the codes could be run by GUI. The steps are simplified, just select the files and click "OK" button to execute the modules.
+* **v1.11** 07/30/2023
+The added function is edit the method of the modules, so that it could export the tables of three kinda samples, could show **duplicate samples**, the **problematic samples** and the **successful samples**.
