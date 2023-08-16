@@ -136,11 +136,19 @@ class admember():
         #用總會員的email欄位比對 歡迎問卷重複但總會員只有一支的電話號碼 
         ttsnum = tts[tts["phone"].isin(dpnum["phone"].to_list())]
         i_series = dpnum["email"].isin(ttsnum["email"].to_list())
-        #取得沒有在總會員email出現的 判斷式位置
-        i = i_series.to_list().index(False)
-        #用判斷式位置找出索引位置 再刪掉該列
-        i = i_series.index.to_list()[i]
-        anti_result = wqs.drop(index = i, axis = 0)
+        #做錯誤保護測試 重複會員是否有更改基本資料
+        try:
+            #取得沒有在總會員email出現的 判斷式位置
+            i = i_series.to_list().index(False)
+        #若有更改基本資料使篩選出錯 則直接刪除歡迎問卷重複但總會員未出現的資料
+        except:
+            #重複樣本年齡為50～54這列資料未在總會員出現 先取得索引位置再刪除
+            i = dpnum[dpnum["AGE"] == "50～54"].index 
+            anti_result = wqs.drop(index = i, axis = 0)
+        else:
+            #用判斷式位置找出索引位置 再刪掉該列
+            i = i_series.index.to_list()[i]
+            anti_result = wqs.drop(index = i, axis = 0)        
         return anti_result
 
     def sample_merge(self,  wqs: pd.DataFrame,  tts: pd.DataFrame):
