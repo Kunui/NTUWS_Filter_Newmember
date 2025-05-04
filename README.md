@@ -24,10 +24,12 @@ There're also two arguments "wqs" and "tts". This function would count the membe
 In addition to running the codes by editing the script file, the modules also support running by GUI. 
 ### Main Program
 Clone the whole file of this repository, make a new directory which is upper the project folder and then create a "main\.py" file to run the modules. The codes within "main" should be:
->import os  
->os.chdir(os.path.dirname(\_\_file\_\_))    
->from filtmem.filter_member_gui import filmem_gui   
->filmem_gui().mainloop()    
+```python
+import os  
+os.chdir(os.path.dirname(__file__))    
+from filtmem.filter_member_gui import filmem_gui   
+filmem_gui().mainloop()
+```
 ### Select the files
 There're three key files users have to select to run the modules. Click the "Open File" buttons on the window, select the right files according to the labels above the entries placed in the same row with the buttons. Each entries would show the path of the file selected.
 ### Print out the Tables and Image
