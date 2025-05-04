@@ -4,11 +4,11 @@ The modules are developed for processing and cleaning the data which generated b
 Users could get the result of each of members merely recommended by interviewers and the key features of them such as "age" or "area" etc. It enables users to track the successful samples each interviewers got and also evaluate their performance.
 ## Methods and Functions
 There are many different methods below the main module class "admember()". The 5 important functions are: 
-* "get_filter()"
-* "get_problem()"
-* "duplicate_number()"
-* "sample_merge()"
-* "interviewers_performance()"
+* ``get_filter()``
+* ``get_problem()``
+* ``duplicate_number()``
+* ``sample_merge()``
+* ``interviewers_performance()``
 ### get_filter()
 This is the major method below "admember()". The function would return the two objects: "**wqs**" and "**tts**", representing the filtered data of "welcome questionnaire samples" and "total members samples" respectively. The first one "wqs" is a pandas.dataframe which processed by the "Welcome Questionnaire" file based on the "recommenders" column, only the samples who recommended by interviewers would selected from the origin data. Similar to "wqs", the second one "tts" is data frame type too. It's selected from the "General members" file, based on the "phone" column which is consistent with the same numbers of the "phone" column in "wqs", "tts" is undoubtedly the data of members the interviewers acquired in "General members" file.
 Both of these two objects are defined as the **arguments** of following methods.
